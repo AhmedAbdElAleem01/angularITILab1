@@ -1,0 +1,60 @@
+<div class="container mt-4">
+
+  <div class="alert alert-primary text-center" role="alert">
+    number of products: {{products.length}}
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <input #titleInput class="form-control" placeholder="Filter by title" (input)="onFilterChange('title', titleInput.value)">
+    </div>
+    <div class="col-md-4">
+      <input #categoryInput class="form-control" placeholder="Filter by category" (input)="onFilterChange('category', categoryInput.value)">
+    </div>
+    <div class="col-md-4">
+      <input #priceInput class="form-control" type="number" placeholder="Max price" (input)="onFilterChange('maxPrice', priceInput.value)">
+    </div>
+  </div>
+
+  <div class="card mb-4 shadow-sm border-primary">
+    <div class="card-header bg-primary text-white fw-bold">
+      Filter Summary
+    </div>
+    <div class="card-body">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <small class="text-muted d-block mb-1">Category</small>
+          <span class="text-dark">{{ filters.category || 'All' }}</span>
+        </div>
+        <div class="col-md-4">
+          <small class="text-muted d-block mb-1">Title</small>
+          <span class="text-dark">{{ filters.title || 'None' }}</span>
+        </div>
+        <div class="col-md-4">
+          <small class="text-muted d-block mb-1">Max Price</small>
+          <span class="text-dark">{{ filters.maxPrice !== Infinity ? filters.maxPrice : 'None' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let product of filteredProducts">
+      <div class="card">
+        <img [src]="product.imageUrl" class="card-img-top" alt="{{ product.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <p class="card-text">
+            Category: <span class="badge bg-success">{{ product.category }}</span>
+          </p>
+
+          <p class="card-text">
+            Stock: <span class="badge bg-danger">{{ product.stock }}</span>
+          </p>
+
+          <p class="card-text">Price: ${{ product.price }}</p>
+          <button type="button" class="btn btn-outline-primary">add to cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
